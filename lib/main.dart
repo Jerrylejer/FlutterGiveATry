@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           
         ),
       ),
-      home: const HomePage(title: 'France Data'),
+      home: const HomePage(title: 'France Data',),
     );
   }
 }
