@@ -72,6 +72,7 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           //Empilez les differentes sections du body - Séparez les avec du padding
           // VIDEO ######################################### VIDEO
+          // AIDE => https://www.youtube.com/watch?v=n1Y4HROvFME&t=329s
           const VideoHero(),
           // BANDEAU ######################################### BANDEAU
           // Insertion du bandeau titre de section
