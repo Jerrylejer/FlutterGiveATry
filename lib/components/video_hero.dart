@@ -3,49 +3,45 @@ import 'package:video_player/video_player.dart';
 
 class VideoHero extends StatefulWidget {
   const VideoHero({Key? key,}) : super(key: key);
-
   @override
   State<VideoHero> createState() => _VideoHeroState();
 }
 
 class _VideoHeroState extends State<VideoHero> {
-  late VideoPlayerController _videoHeroController;
-  late Future<void> _initializeVideoHeroFuture;
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
-    _videoHeroController = VideoPlayerController.asset('web/assets/video/v1.mp4');
-    _initializeVideoHeroFuture =
-        _videoHeroController.initialize().then((_) {
-      _videoHeroController.play();
-      _videoHeroController.setLooping(true);
+    super.initState();
+    _controller = VideoPlayerController.asset('web/assets/video/v1.mp4');
+
+    _controller.addListener(() {
       setState(() {});
     });
-    super.initState();
+    _controller.setLooping(true);
+    _controller.initialize().then((_) => setState(() {}));
+    _controller.play();
   }
 
   @override
   void dispose() {
-    _videoHeroController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _initializeVideoHeroFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return AspectRatio(
-              aspectRatio: _videoHeroController.value.aspectRatio,
-              child: VideoPlayer(_videoHeroController),
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator()
-            );
-          }
-        }
-      );
+    return SingleChildScrollView(
+      child: 
+          AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                VideoPlayer(_controller),
+                VideoProgressIndicator(_controller, allowScrubbing: true)],
+            ),
+          ),
+    );
   }
 }
-

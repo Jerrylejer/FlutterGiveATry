@@ -67,12 +67,14 @@ class HomePage extends StatelessWidget {
           },
         ),
       ),
-      body: ListView(
+      body: 
+      
+      ListView(
         // agencement des sections du body en colonne
         children: <Widget>[
           //Empilez les differentes sections du body - Séparez les avec du padding
           // VIDEO ######################################### VIDEO
-          // AIDE => https://www.youtube.com/watch?v=n1Y4HROvFME&t=329s
+          // AIDE => https://stackoverflow.com/questions/75001588/how-to-play-video-from-video-path-in-flutter
           const VideoHero(),
           // BANDEAU ######################################### BANDEAU
           // Insertion du bandeau titre de section
