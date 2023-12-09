@@ -2,46 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoHero extends StatefulWidget {
-  const VideoHero({Key? key,}) : super(key: key);
+  const VideoHero({super.key});
+
   @override
   State<VideoHero> createState() => _VideoHeroState();
 }
 
 class _VideoHeroState extends State<VideoHero> {
-  late VideoPlayerController _controller;
 
+  late VideoPlayerController _videoPlayerController;
+  
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('web/assets/video/v1.mp4');
-
-    _controller.addListener(() {
-      setState(() {});
-    });
-    _controller.setLooping(true);
-    _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
+    _videoPlayerController =
+        VideoPlayerController.asset('web/assets/video/v1.mp4')
+          ..initialize().then((_) {
+            setState(() {});
+            _videoPlayerController.setLooping(true);
+            _videoPlayerController.play();
+          });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: 
+    return SizedBox(
+      child: Column(
+        children: <Widget>[
           AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
+            aspectRatio: _videoPlayerController.value.aspectRatio,
             child: Stack(
-              alignment: Alignment.bottomCenter,
               children: <Widget>[
-                VideoPlayer(_controller),
-                VideoProgressIndicator(_controller, allowScrubbing: true)],
+                VideoPlayer(_videoPlayerController),
+                const Positioned(bottom:230,left:120, child: Text("France Data", style: TextStyle(
+                    fontSize: 25,
+                    letterSpacing: 5,
+                    color: Colors.white)),),
+                const Positioned(bottom:200,left:60, child: Text("Atlas des données de France", style: TextStyle(
+                    fontSize: 16,
+                    letterSpacing: 4,
+                    color: Colors.white)),),
+              ],
             ),
           ),
+        ],
+      ),
     );
   }
 }
