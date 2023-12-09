@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+// VIDEO ######################################### VIDEO
+// AIDES => https://stackoverflow.com/questions/75001588/how-to-play-video-from-video-path-in-flutter
+// => https://docs.flutter.dev/cookbook/plugins/play-video
+
 class VideoHero extends StatefulWidget {
   const VideoHero({super.key});
 

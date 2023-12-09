@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_examen1/components/video_hero.dart';
+import 'package:flutter_examen1/pages/regions_page.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,7 +10,6 @@ class HomePage extends StatelessWidget {
   });
 
   final String title;
-  void onPressed() {}
 
   // ###### Logique sidebar menu à développer dans un StatefulWidget ######
   // A ESSAYER => https://docs.flutter.dev/cookbook/design/drawer
@@ -72,9 +72,8 @@ class HomePage extends StatelessWidget {
         // agencement des sections du body en colonne
         children: <Widget>[
           //Empilez les differentes sections du body - Séparez les avec du padding
-          // VIDEO ######################################### VIDEO
-          // AIDE => https://stackoverflow.com/questions/75001588/how-to-play-video-from-video-path-in-flutter
-          // la vidéo fonctionne de rare fois lorsque je modifie le code du Widget build ...
+          // la vidéo fonctionne de rare fois lorsque je modifie le code du Widget build et refresh... sinon reste figée ou
+          // fonctionne mais avec des marges énormes tout autour, je sèche ...
           const VideoHero(),
           // BANDEAU ######################################### BANDEAU
           // Insertion du bandeau titre de section
@@ -99,13 +98,17 @@ class HomePage extends StatelessWidget {
           // BOUTON ICON + TEXTE ############################################ BOUTON ICON + TEXTE
           // AIDE Icone + texte -> https://www.flutterbeads.com/button-with-icon-and-text-flutter/
           SizedBox(
-              width: 200,
               child: ElevatedButton.icon(
-                // Renvoyer à la page "Régions" avec onPressed()
-                onPressed: onPressed,
+                // REDIRECTION ############################################ REDIRECTION
+                // AIDE -> https://www.flutterbeads.com/button-with-icon-and-text-flutter/
+                onPressed: () {
+                Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const RegionPage(title: "Recherche Par Region")));
+                },
                 icon: const Icon(Icons.search),
-                label: const Text('Rechercher Par Région'),
-              )),
+                label: const Text('Rechercher Par Région', style: TextStyle(
+                    color: Colors.black)),),
+              ),
           // PARAGRAPHE 2 ############ LOREM IPSUM ################ PARAGRAPHE 2
           // AIDE => https://www.dhiwise.com/post/flutter-lorem-revolutionizing-placeholder-text-in-flutter
           Container(
@@ -148,6 +151,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Text('Region'),
               leading: Icon(Icons.map),
+              // POUR ALLER PLUS LOIN ET REDIRIGER
               // selected: _selectedIndex == 1,
               // onTap: () {
               //  => Update the state of the app
